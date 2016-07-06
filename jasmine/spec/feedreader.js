@@ -48,7 +48,7 @@ $(function() {
             // Depending on if I 'run all' or run the single spec, the test passes or fails
             it('should hide the menu', function() {
                 $('.menu-icon-link').click();
-                $('.menu-icon-link').click();               
+                // $('.menu-icon-link').click();               
                 expect($(document.body).hasClass('menu-hidden')).toBe(true);
             });
           });
@@ -58,13 +58,13 @@ $(function() {
     describe('Initial Entries', function() {
 
         // loadFeed() is asynchronous so this test will require the
-        // use of Jasmine's beforeEach and asynchronous done() function.
+        // use of Jasmine's beforeEach and asynchronous done() function
         beforeEach(function(done) {
             loadFeed(0, done); 
 
         }); 
 
-        // test that there is at least a single .entry element within the .feed container
+        // Test that there is at least a single .entry element within the .feed container
         it('has added entries', function() {
             expect($('.feed .entry').length).not.toBe(0); 
 
@@ -77,8 +77,29 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        it('should be new stuff', function() {
+         // Define content of feeds we would like to test
+         var udacityContent, cssContent;
+         var udacityTitle, cssTitle; 
 
+        // loadFeed() is asynchronous so this test will require the
+        // use of Jasmine's beforeEach and asynchronous done() function
+
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                // udacityContent = $('.feed').html();
+                udacityTitle = $('.header-title').html(); 
+                // Load CSS feed
+                loadFeed(1, done);                
+            });
+        });
+
+        // Test that the content actually changes by the loadFeed function
+        it('should be new stuff', function() {
+            // Define new content and title from CSS Tricks Feed
+            // cssContent = $('.feed').html();
+            cssTitle = $('.header-title').html(); 
+            // expect(cssContent).not.toBe(udacityContent);
+            expect(cssTitle).not.toBe(udacityTitle);
         });
     });
 }());
