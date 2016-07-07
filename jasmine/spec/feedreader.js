@@ -71,6 +71,7 @@ $(function() {
         });
     });
 
+    // Test suite 'New Feed Selection'
     describe('New Feed Selection', function() {
 
         // Define content of feeds we would like to test
