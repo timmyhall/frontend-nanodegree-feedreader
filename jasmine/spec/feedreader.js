@@ -18,7 +18,7 @@ $(function() {
         });
 
         // Loop through all items in allFeeds array to make sure names are defined and not empty
-        it('should have a defined name', function(){
+        it('should have a defined name', function() {
             for (i = 0, len = allFeeds.length; i < len; i++) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
@@ -30,18 +30,18 @@ $(function() {
     describe('The menu', function() {
 
         // Test that ensures the menu element is hidden by default
-         it('should have menu element hidden by default by having class menu-hidden', function() {
-            var bodyClass = document.body.className; 
+        it('should have menu element hidden by default by having class menu-hidden', function() {
+            var bodyClass = document.body.className;
             expect(bodyClass).toContain('menu-hidden');
-         });
+        });
 
-          // Test suite 'when clicked'
-          describe('when clicked', function() {
+        // Test suite 'when clicked'
+        describe('when clicked', function() {
 
             // Test to see if menu displays when clicked
             it('should display the menu', function() {
                 $('.menu-icon-link').click();
-                expect($(document.body).hasClass('menu-hidden')).not.toBe(true);
+                expect($(document.body).hasClass('menu-hidden')).toBeFalsy();
             });
 
             // Test to see if menu hides after clicked then clicked again
@@ -49,57 +49,52 @@ $(function() {
             it('should hide the menu', function() {
                 $('.menu-icon-link').click();
                 // $('.menu-icon-link').click();               
-                expect($(document.body).hasClass('menu-hidden')).toBe(true);
+                expect($(document.body).hasClass('menu-hidden')).toBeTruthy();
             });
-          });
+        });
     });
-    
+
     // Test suite 'Initial Entries'
     describe('Initial Entries', function() {
 
         // loadFeed() is asynchronous so this test will require the
         // use of Jasmine's beforeEach and asynchronous done() function
         beforeEach(function(done) {
-            loadFeed(0, done); 
+            loadFeed(0, done);
 
-        }); 
+        });
 
         // Test that there is at least a single .entry element within the .feed container
         it('has added entries', function() {
-            expect($('.feed .entry').length).not.toBe(0); 
+            expect($('.feed .entry').length).not.toBe(0);
 
         });
     });
 
     describe('New Feed Selection', function() {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-         // Define content of feeds we would like to test
-         var udacityContent, cssContent;
-         var udacityTitle, cssTitle; 
+        // Define content of feeds we would like to test
+        var contentOne, contentTwo;
 
         // loadFeed() is asynchronous so this test will require the
         // use of Jasmine's beforeEach and asynchronous done() function
-
         beforeEach(function(done) {
             loadFeed(0, function() {
-                // udacityContent = $('.feed').html();
-                udacityTitle = $('.header-title').html(); 
+                contentOne = $('.feed').html();
+                titleOne = $('.header-title').html();
+
                 // Load CSS feed
-                loadFeed(1, done);                
+                loadFeed(2, done);
             });
         });
 
         // Test that the content actually changes by the loadFeed function
         it('should be new stuff', function() {
-            // Define new content and title from CSS Tricks Feed
-            // cssContent = $('.feed').html();
-            cssTitle = $('.header-title').html(); 
-            // expect(cssContent).not.toBe(udacityContent);
-            expect(cssTitle).not.toBe(udacityTitle);
+
+            // Define new content and title from 'HTML5 Rocks' Feed
+            contentTwo = $('.feed').html();
+            expect(contentTwo).not.toBe(contentOne);
+
         });
     });
 }());
