@@ -11,7 +11,7 @@ $(function() {
 
         // Loop through all items in allFeeds array to make sure urls are defined and not empty
         it('should have a defined URL', function() {
-            for (i = 0; i < allFeeds.length; i++) {
+            for (i = 0, len = allFeeds.length; i < len; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
             }
@@ -19,7 +19,7 @@ $(function() {
 
         // Loop through all items in allFeeds array to make sure names are defined and not empty
         it('should have a defined name', function(){
-            for (i = 0; i < allFeeds.length; i++) {
+            for (i = 0, len = allFeeds.length; i < len; i++) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
             }
